@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA000001 /* ScreenPutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000001; };
+		AA000002 /* ScreenshotRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000002; };
+		AA000003 /* StorageConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000003; };
+		AA000004 /* StorageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000004; };
+		AA000005 /* S3Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000005; };
+		AA000006 /* AzureBlobUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000006; };
+		AA000007 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000007; };
+		AA000008 /* ClipboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000008; };
+		AA000009 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000009; };
+		AA00000A /* ScreenshotLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000A; };
+		AA00000B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000B; };
+		AA00000C /* MenuBarPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000C; };
+		AA00000D /* ScreenshotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000D; };
+		AA00000E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000E; };
+		AA00000F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF00000F; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FF000001 /* ScreenPutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPutApp.swift; sourceTree = "<group>"; };
+		FF000002 /* ScreenshotRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotRecord.swift; sourceTree = "<group>"; };
+		FF000003 /* StorageConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageConfig.swift; sourceTree = "<group>"; };
+		FF000004 /* StorageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUploader.swift; sourceTree = "<group>"; };
+		FF000005 /* S3Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Uploader.swift; sourceTree = "<group>"; };
+		FF000006 /* AzureBlobUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureBlobUploader.swift; sourceTree = "<group>"; };
+		FF000007 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
+		FF000008 /* ClipboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManager.swift; sourceTree = "<group>"; };
+		FF000009 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		FF00000A /* ScreenshotLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotLocationManager.swift; sourceTree = "<group>"; };
+		FF00000B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		FF00000C /* MenuBarPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopover.swift; sourceTree = "<group>"; };
+		FF00000D /* ScreenshotRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotRow.swift; sourceTree = "<group>"; };
+		FF00000E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FF00000F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FF000010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF000011 /* ScreenPut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenPut.entitlements; sourceTree = "<group>"; };
+		FF000020 /* ScreenPut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenPut.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		GG000001 = {
+			isa = PBXGroup;
+			children = (
+				GG000002 /* ScreenPut */,
+				GG000008 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		GG000002 /* ScreenPut */ = {
+			isa = PBXGroup;
+			children = (
+				GG000003 /* App */,
+				GG000004 /* Models */,
+				GG000005 /* Services */,
+				GG000006 /* ViewModels */,
+				GG000007 /* Views */,
+				FF00000F /* Assets.xcassets */,
+				FF000011 /* ScreenPut.entitlements */,
+			);
+			path = ScreenPut;
+			sourceTree = "<group>";
+		};
+		GG000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FF000001 /* ScreenPutApp.swift */,
+				FF000010 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		GG000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF000002 /* ScreenshotRecord.swift */,
+				FF000003 /* StorageConfig.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		GG000005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FF000004 /* StorageUploader.swift */,
+				FF000005 /* S3Uploader.swift */,
+				FF000006 /* AzureBlobUploader.swift */,
+				FF000007 /* FolderWatcher.swift */,
+				FF000008 /* ClipboardManager.swift */,
+				FF000009 /* NotificationManager.swift */,
+				FF00000A /* ScreenshotLocationManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		GG000006 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FF00000B /* AppViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		GG000007 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF00000C /* MenuBarPopover.swift */,
+				FF00000D /* ScreenshotRow.swift */,
+				FF00000E /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		GG000008 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF000020 /* ScreenPut.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TT000001 /* ScreenPut */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = LL000001 /* Build configuration list for PBXNativeTarget "ScreenPut" */;
+			buildPhases = (
+				SS000001 /* Sources */,
+				DD000001 /* Frameworks */,
+				RR000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenPut;
+			productName = ScreenPut;
+			productReference = FF000020 /* ScreenPut.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PP000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					TT000001 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = LL000002 /* Build configuration list for PBXProject "ScreenPut" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = GG000001;
+			productRefGroup = GG000008 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TT000001 /* ScreenPut */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		RR000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA00000F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		SS000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000001 /* ScreenPutApp.swift in Sources */,
+				AA000002 /* ScreenshotRecord.swift in Sources */,
+				AA000003 /* StorageConfig.swift in Sources */,
+				AA000004 /* StorageUploader.swift in Sources */,
+				AA000005 /* S3Uploader.swift in Sources */,
+				AA000006 /* AzureBlobUploader.swift in Sources */,
+				AA000007 /* FolderWatcher.swift in Sources */,
+				AA000008 /* ClipboardManager.swift in Sources */,
+				AA000009 /* NotificationManager.swift in Sources */,
+				AA00000A /* ScreenshotLocationManager.swift in Sources */,
+				AA00000B /* AppViewModel.swift in Sources */,
+				AA00000C /* MenuBarPopover.swift in Sources */,
+				AA00000D /* ScreenshotRow.swift in Sources */,
+				AA00000E /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CC000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScreenPut/ScreenPut.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenPut/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenPut;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.screenput.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CC000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScreenPut/ScreenPut.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenPut/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenPut;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.screenput.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CC000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		LL000001 /* Build configuration list for PBXNativeTarget "ScreenPut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC000001 /* Debug */,
+				CC000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		LL000002 /* Build configuration list for PBXProject "ScreenPut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC000003 /* Debug */,
+				CC000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = PP000001 /* Project object */;
+}
