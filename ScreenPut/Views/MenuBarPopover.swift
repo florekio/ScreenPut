@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct MenuBarPopover: View {
     let viewModel: AppViewModel
 

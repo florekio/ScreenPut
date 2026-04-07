@@ -1,6 +1,6 @@
 import SwiftUI
 
-@main
+@main @MainActor
 struct ScreenPutApp: App {
     @State private var viewModel = AppViewModel()
 
