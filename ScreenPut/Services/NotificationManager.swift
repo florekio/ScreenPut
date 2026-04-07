@@ -1,10 +1,22 @@
 import UserNotifications
 
+final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification
+    ) async -> UNNotificationPresentationOptions {
+        [.banner, .sound]
+    }
+}
+
 enum NotificationManager {
-    static func requestPermission() {
+    static let delegate = NotificationDelegate()
+
+    static func setup() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = delegate
         Task {
-            try? await UNUserNotificationCenter.current()
-                .requestAuthorization(options: [.alert, .sound])
+            try? await center.requestAuthorization(options: [.alert, .sound])
         }
     }
 

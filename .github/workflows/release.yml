@@ -68,8 +68,11 @@ jobs:
             ### Installation
             1. Download `ScreenPut.dmg`
             2. Open the DMG and drag **ScreenPut** to **Applications**
-            3. Launch ScreenPut from Applications
-            4. If you see a Gatekeeper warning, right-click the app → **Open** → **Open**
+            3. Remove the quarantine flag (required for unsigned apps):
+               ```
+               xattr -cr /Applications/ScreenPut.app
+               ```
+            4. Launch ScreenPut from Applications
 
             ### Requirements
             - macOS 14.0 (Sonoma) or later

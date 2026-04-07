@@ -79,7 +79,7 @@ final class AppViewModel {
         loadHistory()
 
         // Setup
-        NotificationManager.requestPermission()
+        NotificationManager.setup()
         ScreenshotLocationManager.ensureConfigured()
         setupWatcher()
     }
