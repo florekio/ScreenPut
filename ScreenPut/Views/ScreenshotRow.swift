@@ -33,7 +33,7 @@ struct ScreenshotRow: View {
                     .truncationMode(.middle)
 
                 HStack(spacing: 6) {
-                    Text(record.uploadedAt, format: .dateTime.hour().minute().second())
+                    Text(formattedDate)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
 
@@ -67,6 +67,30 @@ struct ScreenshotRow: View {
                     .foregroundStyle(.secondary)
                     .font(.caption)
             }
+    }
+
+    private var formattedDate: String {
+        let calendar = Calendar.current
+        let now = Date()
+        let date = record.uploadedAt
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let timeString = timeFormatter.string(from: date)
+
+        if calendar.isDateInToday(date) {
+            return timeString
+        } else if calendar.isDateInYesterday(date) {
+            return "Yesterday \(timeString)"
+        } else if calendar.component(.year, from: date) == calendar.component(.year, from: now) {
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "MMM d"
+            return "\(dayFormatter.string(from: date)) \(timeString)"
+        } else {
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "MMM d, yyyy"
+            return "\(dayFormatter.string(from: date)) \(timeString)"
+        }
     }
 
     private var formattedSize: String {

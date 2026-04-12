@@ -22,6 +22,8 @@
 		AA00000D /* ScreenshotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000D; };
 		AA00000E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000E; };
 		AA00000F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF00000F; };
+		AA000010 /* ShareXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000012; };
+		AA000011 /* ShareXUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000013; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		FF00000F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF000010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF000011 /* ScreenPut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenPut.entitlements; sourceTree = "<group>"; };
+		FF000012 /* ShareXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareXConfig.swift; sourceTree = "<group>"; };
+		FF000013 /* ShareXUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareXUploader.swift; sourceTree = "<group>"; };
 		FF000020 /* ScreenPut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenPut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -92,6 +96,7 @@
 			children = (
 				FF000002 /* ScreenshotRecord.swift */,
 				FF000003 /* StorageConfig.swift */,
+				FF000012 /* ShareXConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +107,7 @@
 				FF000004 /* StorageUploader.swift */,
 				FF000005 /* S3Uploader.swift */,
 				FF000006 /* AzureBlobUploader.swift */,
+				FF000013 /* ShareXUploader.swift */,
 				FF000007 /* FolderWatcher.swift */,
 				FF000008 /* ClipboardManager.swift */,
 				FF000009 /* NotificationManager.swift */,
@@ -219,6 +225,8 @@
 				AA00000C /* MenuBarPopover.swift in Sources */,
 				AA00000D /* ScreenshotRow.swift in Sources */,
 				AA00000E /* SettingsView.swift in Sources */,
+				AA000010 /* ShareXConfig.swift in Sources */,
+				AA000011 /* ShareXUploader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

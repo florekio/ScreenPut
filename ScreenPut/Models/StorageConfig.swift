@@ -3,6 +3,7 @@ import Foundation
 enum StorageProvider: String, Codable, CaseIterable {
     case s3 = "AWS S3"
     case azure = "Azure Blob Storage"
+    case shareX = "ShareX Custom"
 }
 
 struct S3Config: Codable, Equatable {

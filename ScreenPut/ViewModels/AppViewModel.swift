@@ -22,6 +22,9 @@ final class AppViewModel {
     var azureConfig: AzureConfig {
         didSet { saveSettings() }
     }
+    var shareXConfig: ShareXConfig {
+        didSet { saveSettings() }
+    }
     var deleteAfterUpload: Bool {
         didSet { UserDefaults.standard.set(deleteAfterUpload, forKey: "deleteAfterUpload") }
     }
@@ -66,6 +69,19 @@ final class AppViewModel {
         }
         loadedAzure.sasToken = KeychainHelper.load(key: "azureSasToken") ?? ""
         azureConfig = loadedAzure
+
+        // Load ShareX config with secret headers from Keychain
+        var loadedShareX = ShareXConfig()
+        if let data = defaults.data(forKey: "shareXConfig"),
+           let config = try? JSONDecoder().decode(ShareXConfig.self, from: data) {
+            loadedShareX = config
+        }
+        for key in loadedShareX.secretHeaderKeys {
+            if let value = KeychainHelper.load(key: "shareX_header_\(key)") {
+                loadedShareX.headers[key] = value
+            }
+        }
+        shareXConfig = loadedShareX
 
         deleteAfterUpload = defaults.bool(forKey: "deleteAfterUpload")
         resizeImages = defaults.object(forKey: "resizeImages") as? Bool ?? true
@@ -212,6 +228,8 @@ final class AppViewModel {
             return S3Uploader(config: s3Config)
         case .azure:
             return AzureBlobUploader(config: azureConfig)
+        case .shareX:
+            return ShareXUploader(config: shareXConfig)
         }
     }
 
@@ -278,6 +296,18 @@ final class AppViewModel {
             defaults.set(data, forKey: "azureConfig")
         }
         KeychainHelper.save(key: "azureSasToken", value: sasToken)
+
+        // Save ShareX config (without secret header values)
+        var shareXForSaving = shareXConfig
+        let secretKeys = shareXForSaving.secretHeaderKeys
+        for key in secretKeys {
+            let value = shareXForSaving.headers[key] ?? ""
+            KeychainHelper.save(key: "shareX_header_\(key)", value: value)
+            shareXForSaving.headers[key] = ""
+        }
+        if let data = try? JSONEncoder().encode(shareXForSaving) {
+            defaults.set(data, forKey: "shareXConfig")
+        }
     }
 
     private func saveHistory() {

@@ -1,13 +1,13 @@
 # ScreenPut
 
-A lightweight macOS menu bar app that automatically uploads your screenshots to **AWS S3** or **Azure Blob Storage** and copies the shareable URL to your clipboard. No browser, no manual uploading — just screenshot and share.
+A lightweight macOS menu bar app that automatically uploads your screenshots to **AWS S3**, **Azure Blob Storage**, or any **ShareX-compatible custom uploader** and copies the shareable URL to your clipboard. No browser, no manual uploading — just screenshot and share.
 
 ![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-5.9%2B-orange)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-MenuBarExtra-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-![ScreenPut](https://github.com/user-attachments/assets/9f1de745-4f3a-43c4-817e-ad1b9cff30e4)
+![ScreenPut](https://s.florek.io/fowdgnk30v74gsvd.png)
 
 ---
 
@@ -15,7 +15,7 @@ A lightweight macOS menu bar app that automatically uploads your screenshots to 
 
 1. **Take a screenshot** (Cmd+Shift+3, Cmd+Shift+4, Cmd+Shift+5)
 2. ScreenPut detects the new file instantly via native macOS file system events
-3. The screenshot is uploaded to your configured cloud storage (S3 or Azure)
+3. The screenshot is uploaded to your configured storage (S3, Azure, or ShareX custom uploader)
 4. The public URL is **copied to your clipboard** automatically
 5. A **system notification** confirms the upload
 6. The screenshot appears in the **menu bar popover** with its URL and thumbnail
@@ -30,6 +30,7 @@ That's it. Screenshot, paste, done.
 - **Instant detection** — uses macOS FSEvents (no polling) to detect new screenshots the moment they appear
 - **AWS S3 support** — uploads directly using AWS Signature V4 authentication
 - **Azure Blob Storage support** — uploads using SAS token authentication
+- **ShareX custom uploader support** — import any `.sxcu` config file to upload to custom HTTP endpoints (put.re, Imgur, etc.)
 - **Auto clipboard** — the shareable URL is copied to your clipboard immediately after upload
 - **System notifications** — get notified when uploads succeed or fail
 - **Recent screenshots** — click the menu bar icon to see your upload history with thumbnails
@@ -47,7 +48,7 @@ That's it. Screenshot, paste, done.
 
 - macOS 14.0 (Sonoma) or later
 - Xcode 15.0 or later (to build from source)
-- An AWS S3 bucket **or** Azure Blob Storage container
+- An AWS S3 bucket, Azure Blob Storage container, or ShareX custom uploader config
 
 ---
 
@@ -150,6 +151,19 @@ Your uploaded screenshots will be accessible at:
 https://mystorageaccount.blob.core.windows.net/screenshots/screenshots/2026/04/02/A1B2C3D4.png
 ```
 
+#### Option C: ShareX Custom Uploader
+
+ScreenPut supports [ShareX custom uploader](https://getsharex.com/docs/custom-uploader) configurations. If you have a `.sxcu` file or JSON config for an image host, you can use it directly.
+
+1. Open **Settings → Storage**
+2. Select **ShareX Custom** from the provider picker
+3. Either **paste the JSON config** into the text area and click **Import JSON**, or click **Import from File...** to load a `.sxcu` file
+4. The fields will be parsed automatically — verify them and you're done
+
+The `$json:path$` syntax tells ScreenPut how to extract the image URL from the server's JSON response. For example, `$json:data.link$` means: parse the response JSON, navigate to `data` → `link`, and use that as the uploaded image URL. If the server returns the URL as plain text, use `$response$`.
+
+Configs with `Headers` (for API key authentication) are also supported — secret-looking header values are stored securely in the macOS Keychain.
+
 ---
 
 ## Usage
@@ -184,8 +198,9 @@ Click the camera icon in the menu bar to see:
 Open Settings from the menu bar popover:
 
 **Storage tab:**
-- Switch between AWS S3 and Azure Blob Storage
+- Switch between AWS S3, Azure Blob Storage, and ShareX Custom
 - Configure credentials for your chosen provider
+- Import ShareX `.sxcu` configs via paste or file picker
 - Status indicator shows whether configuration is complete
 
 **General tab:**
@@ -208,11 +223,13 @@ ScreenPut/
 │   │   └── Info.plist                      # LSUIElement=true (menu bar only)
 │   ├── Models/
 │   │   ├── ScreenshotRecord.swift          # Data model for uploaded screenshots
-│   │   └── StorageConfig.swift             # S3Config, AzureConfig, StorageProvider
+│   │   ├── StorageConfig.swift             # S3Config, AzureConfig, StorageProvider
+│   │   └── ShareXConfig.swift             # ShareX custom uploader config + JSON parser
 │   ├── Services/
 │   │   ├── StorageUploader.swift           # Upload protocol + error types
 │   │   ├── S3Uploader.swift                # AWS S3 with Signature V4 (CryptoKit)
 │   │   ├── AzureBlobUploader.swift         # Azure Blob Storage with SAS tokens
+│   │   ├── ShareXUploader.swift            # ShareX custom uploader (multipart POST)
 │   │   ├── FolderWatcher.swift             # FSEvents directory monitor
 │   │   ├── ClipboardManager.swift          # NSPasteboard wrapper
 │   │   ├── NotificationManager.swift       # UNUserNotificationCenter wrapper
@@ -243,6 +260,7 @@ ScreenPut is a pure SwiftUI menu bar app with no external dependencies. It uses 
 | Menu bar | `MenuBarExtra` + `.window` style | Full SwiftUI views with thumbnails, not just plain menus |
 | S3 auth | Raw AWS Signature V4 with `CryptoKit` | Zero dependencies — only one S3 operation needed (`PutObject`) |
 | Azure auth | SAS token appended to URL | Simplest approach, no signing code needed |
+| ShareX auth | Custom headers from config | Flexible — supports any auth the target service requires |
 | File watching | `DispatchSource` (FSEvents) | Event-driven, efficient, no polling |
 | State management | `@Observable` (Observation framework) | Modern SwiftUI, less boilerplate |
 | Concurrency | `async/await` | Clean sequential pipeline, no Combine needed |
@@ -260,7 +278,7 @@ DispatchSource detects new file in ~/Documents/Screenshots
     ├── MOV: wait for file to finish writing (size stability check)
     │
     ▼
-Upload to S3 (Signature V4) or Azure (SAS token)
+Upload to S3 (Signature V4), Azure (SAS token), or ShareX (multipart POST)
     │ retry up to 3x with exponential backoff
     │
     ▼
@@ -306,9 +324,10 @@ This is ~130 lines of Swift and avoids pulling in the full AWS SDK (~20 SPM pack
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| `storageProvider` | String | `"AWS S3"` | Active storage backend |
+| `storageProvider` | String | `"AWS S3"` | Active storage backend (`AWS S3`, `Azure Blob Storage`, or `ShareX Custom`) |
 | `s3Config` | Data (JSON) | Empty config | S3 bucket, region, access key ID, path prefix |
 | `azureConfig` | Data (JSON) | Empty config | Azure account name, container name |
+| `shareXConfig` | Data (JSON) | Empty config | ShareX uploader name, URL, form name, response pattern, headers |
 | `deleteAfterUpload` | Bool | `false` | Remove local file after upload |
 | `resizeImages` | Bool | `true` | Downscale images before upload |
 | `resizeScale` | Double | `0.8` | Resize scale factor (0.25–1.0) |
@@ -319,6 +338,7 @@ This is ~130 lines of Swift and avoids pulling in the full AWS SDK (~20 SPM pack
 |-----|-------------|
 | `s3SecretAccessKey` | AWS S3 secret access key |
 | `azureSasToken` | Azure Blob Storage SAS token |
+| `shareX_header_{key}` | ShareX secret header values (e.g. Authorization, API-Key) |
 
 All Keychain items are stored under the service name `com.screenput.app`.
 

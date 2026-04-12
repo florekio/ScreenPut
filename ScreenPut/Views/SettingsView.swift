@@ -1,8 +1,11 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 @MainActor
 struct SettingsView: View {
     @Bindable var viewModel: AppViewModel
+    @State private var shareXJSONInput: String = ""
+    @State private var shareXImportError: String?
 
     var body: some View {
         TabView {
@@ -12,7 +15,7 @@ struct SettingsView: View {
             generalTab
                 .tabItem { Label("General", systemImage: "gear") }
         }
-        .frame(width: 480, height: 320)
+        .frame(width: 480, height: 420)
     }
 
     // MARK: - Storage Tab
@@ -32,6 +35,8 @@ struct SettingsView: View {
                 s3Fields
             case .azure:
                 azureFields
+            case .shareX:
+                shareXFields
             }
         }
         .padding()
@@ -84,6 +89,114 @@ struct SettingsView: View {
                     .font(.caption)
             }
         }
+    }
+
+    private var shareXFields: some View {
+        Group {
+            GroupBox("Import ShareX Config") {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Paste a ShareX custom uploader JSON (.sxcu):")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextEditor(text: $shareXJSONInput)
+                        .font(.system(.caption, design: .monospaced))
+                        .frame(height: 80)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.secondary.opacity(0.3))
+                        )
+                    HStack {
+                        Button("Import JSON") {
+                            importShareXJSON()
+                        }
+                        Button("Import from File...") {
+                            importShareXFile()
+                        }
+                        Spacer()
+                        if let error = shareXImportError {
+                            Text(error)
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                        }
+                    }
+                }
+            }
+
+            TextField("Name", text: $viewModel.shareXConfig.name)
+                .textFieldStyle(.roundedBorder)
+            TextField("Request URL", text: $viewModel.shareXConfig.requestURL)
+                .textFieldStyle(.roundedBorder)
+            TextField("File Form Name", text: $viewModel.shareXConfig.fileFormName)
+                .textFieldStyle(.roundedBorder)
+            TextField("Response URL Pattern", text: $viewModel.shareXConfig.responseURLPattern,
+                      prompt: Text("e.g. $json:data.link$"))
+                .textFieldStyle(.roundedBorder)
+
+            if !viewModel.shareXConfig.headers.isEmpty {
+                GroupBox("Headers") {
+                    ForEach(Array(viewModel.shareXConfig.headers.keys.sorted()), id: \.self) { key in
+                        HStack {
+                            Text(key)
+                                .font(.caption)
+                                .frame(width: 120, alignment: .leading)
+                            if viewModel.shareXConfig.secretHeaderKeys.contains(key) {
+                                SecureField("value", text: shareXHeaderBinding(for: key))
+                                    .textFieldStyle(.roundedBorder)
+                            } else {
+                                TextField("value", text: shareXHeaderBinding(for: key))
+                                    .textFieldStyle(.roundedBorder)
+                            }
+                        }
+                    }
+                }
+            }
+
+            if viewModel.shareXConfig.isConfigured {
+                Label("Configured", systemImage: "checkmark.circle.fill")
+                    .foregroundStyle(.green)
+                    .font(.caption)
+            } else {
+                Label("Missing required fields", systemImage: "exclamationmark.circle")
+                    .foregroundStyle(.orange)
+                    .font(.caption)
+            }
+        }
+    }
+
+    private func importShareXJSON() {
+        shareXImportError = nil
+        guard let data = shareXJSONInput.data(using: .utf8) else {
+            shareXImportError = "Invalid text"
+            return
+        }
+        do {
+            viewModel.shareXConfig = try ShareXConfig.fromShareXJSON(data)
+        } catch {
+            shareXImportError = error.localizedDescription
+        }
+    }
+
+    private func importShareXFile() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.json]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        if panel.runModal() == .OK, let url = panel.url {
+            do {
+                let data = try Data(contentsOf: url)
+                viewModel.shareXConfig = try ShareXConfig.fromShareXJSON(data)
+                shareXJSONInput = String(data: data, encoding: .utf8) ?? ""
+            } catch {
+                shareXImportError = error.localizedDescription
+            }
+        }
+    }
+
+    private func shareXHeaderBinding(for key: String) -> Binding<String> {
+        Binding(
+            get: { viewModel.shareXConfig.headers[key] ?? "" },
+            set: { viewModel.shareXConfig.headers[key] = $0 }
+        )
     }
 
     // MARK: - General Tab
